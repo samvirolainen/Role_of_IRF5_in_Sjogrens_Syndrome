@@ -1,4 +1,4 @@
-# Colocalization of Autoimmune Risk Loci with Quantitative Trait Loci (QTLs) -
+# Colocalization of Autoimmune Risk Loci with Quantitative Trait Loci (QTLs) 
 
 ## 🧬 Scientific Rationale 
 Autoimmune diseases such as Lupus (SLE), Juvenile Idiopathic Arthritis (JIA), and Sjögren's Syndrome result from a complex combination of genetic and environmental facotrs. Because of this complexity, identifying drug targets and targetable pathways for autoimmune diseases is often difficult. Genetic studies can provide clues of the specific genes, pathways, and cell-specific mediators of a specific disease. This project leverages human genetic data to 1) Identify risk genes and pathways driving risk for autoimmune diseases 
