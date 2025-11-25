@@ -2,7 +2,7 @@
 title: "01 — Download & Prepare GWAS Data"
 author: "Sam Virolainen"
 date: "2025-11-22"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
