@@ -13,6 +13,8 @@ and 2) Propose how these risk genes contribute to disease and in which cell type
 This approach nominates specific immune pathways that are important for autoimmmune disease pathogenesis and prioritizes relevant cell-types in these pathways. In early discovery, this information can be used to inform the development of pre-clinical platforms (in vitro/in vivo/ex vivo models) to validate potential disease targets. 
 
 ## Data Availability
+-Sjögren's Syndrome GWAS data is pulled from: Taylor KE, et al. Genome-Wide Association Analysis Reveals Genetic Heterogeneity of Sjögren's Syndrome According to Ancestry. Arthritis Rheumatol. 2017 Jun;69(6):1294-1305. doi: 10.1002/art.40040.
+
 Raw and processed data from the publication are **not distributed** in this repository due to licensing and size restrictions.  
 Users must obtain data directly from the original publication or associated repositories.
 
