@@ -126,13 +126,9 @@ colSums(is.na(gwas[, ..required_cols]))
 saveRDS(gwas, "../data/processed/harmonized/gwas_sjogrens_raw.rds")
 ```
 
-## Next Steps
-
 ## Notebook 02 will:
 
 # Align alleles between GWAS and eQTL
-
-# Convert OR → beta if needed
 
 # Ensure consistent genome build
 
