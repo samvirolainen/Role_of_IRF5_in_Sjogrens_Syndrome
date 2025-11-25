@@ -1,0 +1,73 @@
+---
+title: "01 — Download & Prepare GWAS Data"
+author: "Sam Virolainen"
+date: "2025-11-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(data.table)
+library(tidyverse)
+```
+#Set up Working Directory 
+```{r setwd, include=FALSE}
+setwd("..")
+```
+## Set up Directory Structure 
+```{r}
+dir.create("data/raw/gwas", recursive = TRUE, showWarnings = FALSE)
+dir.create("data/processed/harmonized", recursive = TRUE, showWarnings = FALSE)
+```
+## Load the GWAS Dataset 
+```{r}
+gwas_path <- "../data/raw/gwas/GCST012796_buildGRCh37.csv"
+
+if (!file.exists(gwas_path)) {
+  stop("GWAS file not found. Make sure it is placed in data/raw/gwas/")
+}
+
+gwas <- fread(gwas_path, sep = ",")
+head(gwas)
+```
+## Convert OR to Beta 
+```{r}
+gwas$beta <- log(gwas$odds_ratio)
+```
+## Inspect the Data Structure
+```{r}
+glimpse(gwas)
+summary(gwas)
+```
+## Verify Required Columns for Downstream Analysis 
+```{r}
+required_cols <- c(
+  "chromosome",
+  "base_pair_location",
+  "effect_allele",
+  "odds_ratio",
+  "standard_error",
+  "p_value"
+)
+
+required_cols %in% names(gwas)
+```
+
+## Check for Missing Values 
+```{r}
+colSums(is.na(gwas[, ..required_cols]))
+```
+## Save the raw dataset for use in Notebook 2 
+```{r}
+saveRDS(gwas, "../data/processed/harmonized/gwas_sjogrens_raw.rds")
+```
+## Next Steps
+## Notebook 02 will:
+# Align alleles between GWAS and eQTL
+# Convert OR → beta if needed
+# Ensure consistent genome build
+# Filter down to overlapping variants
+# Prepare data structures for coloc
+# Select loci or genes for testing
+
+
