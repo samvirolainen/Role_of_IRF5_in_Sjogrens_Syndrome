@@ -19,7 +19,9 @@ Raw and processed data from the publication are **not distributed** in this repo
 Users must obtain data directly from the original publication or associated repositories.
 
 ## Environment
-A reproducible Conda environment for this project will be included here once the analyses commence. 
+This project uses a reproducible conda environment (see `environment.yml`):
+conda env create -f environment.yml
+conda activate coloc_r_env
 
 ## License
 This project’s code is released under the MIT License (see `LICENSE`).
