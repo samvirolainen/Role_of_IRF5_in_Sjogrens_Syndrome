@@ -1,0 +1,90 @@
+---
+title: '03 — GWAS Visualization: Manhattan & QQ Plots (Sjögren''s)'
+author: "Sam Virolainen"
+date: "2025-11-26"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(data.table)
+library(tidyverse)
+library(qqman) 
+```
+## Load Cleaned GWAS Data 
+```{r}
+gwas <- readRDS("../data/processed/harmonized/gwas_sjogrens_clean.rds")
+glimpse(gwas)
+```
+## Prepare P-Values for Plotting 
+```{r}
+sum(gwas$p_value == 0, na.rm = TRUE)
+
+gwas <- gwas %>%
+mutate(p_for_plot = ifelse(p_value == 0, 1e-300, p_value))
+```
+## Plot P-Value Histogram 
+```{r}
+ggplot(gwas, aes(x = p_value)) +
+geom_histogram(bins = 50) +
+labs(
+title = "P-value distribution — Sjögren's GWAS",
+x = "p-value",
+y = "Count"
+)
+```
+## Generate Manhattan Plot 
+```{r}
+manhattan(
+gwas,
+chr = "chromosome",
+bp = "base_pair_location",
+p = "p_for_plot",
+snp = "variant_id",
+genomewideline = -log10(5e-8),
+suggestiveline = -log10(1e-5),
+main = "Sjögren's Syndrome GWAS — Manhattan Plot"
+)
+```
+## Generate Quantile Quantile Plot 
+```{r}
+qq(gwas$p_for_plot,
+main = "QQ plot — Sjögren's Syndrome GWAS")
+```
+## Identify Top GWAS Hits 
+```{r}
+top_hits <- gwas %>%
+arrange(p_value) %>%
+slice(1:20) %>%
+select(variant_id, chromosome, base_pair_location,
+effect_allele, odds_ratio, beta, p_value)
+
+top_hits
+```
+## Save Plots 
+```{r}
+if (!dir.exists("../results")) dir.create("../results")
+```
+## Save Manhattan Plot 
+```{r}
+png("../results/manhattan_sjogrens.png", width = 1200, height = 800)
+manhattan(
+gwas,
+chr = "chromosome",
+bp = "base_pair_location",
+p = "p_for_plot",
+snp = "variant_id",
+genomewideline = -log10(5e-8),
+suggestiveline = -log10(1e-5),
+main = "Sjögren's Syndrome GWAS — Manhattan Plot"
+)
+dev.off()
+```
+
+## Save QQ plot
+```{r}
+png("../results/qq_sjogrens.png", width = 800, height = 800)
+qq(gwas$p_for_plot,
+main = "QQ plot — Sjögren's Syndrome GWAS")
+dev.off()
+```
