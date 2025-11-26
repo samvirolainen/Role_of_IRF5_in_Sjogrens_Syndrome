@@ -1,0 +1,52 @@
+---
+title: "02 — Harmonize & Clean GWAS Data"
+author: "Sam Virolainen"
+date: "2025-11-26"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+library(data.table)
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Load GWAS Data 
+```{r}
+gwas <- readRDS("../data/processed/harmonized/gwas_sjogrens_raw.rds")
+head(gwas)
+```
+## Normalize Chromosome Formatting 
+```{r}
+gwas$chromosome <- as.character(gwas$chromosome)
+gwas$chromosome[gwas$chromosome == "X"] <- "23"
+gwas$chromosome[gwas$chromosome == "Y"] <- "24"
+gwas$chromosome <- as.integer(gwas$chromosome)
+```
+## Normalize Allele Format 
+```{r}
+gwas$effect_allele <- toupper(gwas$effect_allele)
+gwas$other_allele <- toupper(gwas$other_allele)
+```
+## Remove non-SNPs and Invalid Genotype Calls 
+```{r}
+valid <- c("A", "C", "G", "T")
+gwas <- gwas %>%
+filter(effect_allele %in% valid)
+```
+## Create Standardized Variant ID 
+```{r}
+gwas$variant_id <- paste0(
+"chr", gwas$chromosome, ":",
+gwas$base_pair_location, "_",
+gwas$effect_allele
+)
+```
+## Summarize Statistics After Filtering 
+```{r}
+summary(gwas)
+```
+## Save Cleaned Dataset 
+```{r}
+saveRDS(gwas, "../data/processed/harmonized/gwas_sjogrens_clean.rds")
+```
+
