@@ -20,8 +20,8 @@ Users must obtain data directly from the original publication or associated repo
 
 ## Environment
 This project uses a reproducible conda environment (see `environment.yml`):
-conda env create -f environment.yml
-conda activate coloc_r_env
+- conda env create -f environment.yml
+- conda activate coloc_r_env
 
 ## License
 This project’s code is released under the MIT License (see `LICENSE`).
