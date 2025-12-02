@@ -1,0 +1,77 @@
+---
+title: "04_IRF5_Locus_Analysis"
+author: "Sam Virolainen"
+date: "2025-12-02"
+output:
+  github_document: default 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(data.table)
+```
+## Load Cleaned GWAS Dataset 
+```{r}
+gwas <- readRDS("../data/processed/harmonized/gwas_sjogrens_clean.rds")
+```
+## Define IRF5-TNPO3 Locus Region on Chromosome 7 
+```{r}
+chr = 7
+locus_start = 128000000
+locus_end   = 129000000
+```
+## Subset GWAS Results to Variants Overlapping IRF5-TNPO3 Locus 
+```{r}
+gwas_irf5 <- gwas %>%
+filter(
+chromosome == chr &
+base_pair_location >= locus_start &
+base_pair_location <= locus_end
+)
+```
+## Confirm Number of SNPs at This Region 
+```{r}
+nrow(gwas_irf5)
+```
+## Display SNPs at IRF5-TNPO3 Locus Ranked by Significance 
+```{r}
+gwas_irf5 %>%
+arrange(p_value) %>%
+select(
+variant_id,
+chromosome,
+base_pair_location,
+odds_ratio,
+beta,
+p_value
+) %>%
+slice(1:100)
+```
+## Plot P-values Across the IRF5-TNPO3 Locus
+```{r}
+library(ggplot2)
+
+ggplot(gwas_irf5, aes(x = base_pair_location, y = -log10(p_value))) +
+geom_point(alpha = 0.6) +
+geom_hline(yintercept = -log10(5e-8), color = "red", linetype = "dashed") +
+labs(
+title = "Association signal at IRF5 locus (Chr7:128–129Mb)",
+x = "Genomic position",
+y = "-log10(p-value)"
+)
+```
+## Save Locus Table 
+```{r}
+saveRDS(
+gwas_irf5,
+"../data/processed/harmonized/gwas_sjogrens_IRF5_locus.rds"
+)
+```
+## Save Table as CSV File for Downstream Analysis 
+```{r}
+fwrite(
+gwas_irf5 %>% arrange(p_value),
+"../data/processed/harmonized/gwas_sjogrens_IRF5_locus.csv"
+)
+```
