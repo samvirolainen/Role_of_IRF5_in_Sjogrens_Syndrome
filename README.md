@@ -14,6 +14,7 @@ This approach nominates specific immune pathways that are important for autoimmm
 
 ## Data Availability
 -Sjögren's Syndrome GWAS data is pulled from: Taylor KE, et al. Genome-Wide Association Analysis Reveals Genetic Heterogeneity of Sjögren's Syndrome According to Ancestry. Arthritis Rheumatol. 2017 Jun;69(6):1294-1305. doi: 10.1002/art.40040.
+
 -Genetic Coordinates for the IRF5-TNPO3 Locus is from: Kottyan LC, et al. The IRF5–TNPO3 association with systemic lupus erythematosus has two components that other autoimmune disorders variably share. Hum Mol Genet. 2015 Jan 15;24(2):582-96. doi: 10.1093/hmg/ddu455.
 
 Raw and processed data from the publication are **not distributed** in this repository due to licensing and size restrictions.  
