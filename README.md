@@ -21,11 +21,14 @@ Users must obtain data directly from the original publication and associated rep
 ## Dataset Overview
 The GWAS data in this project are from Taylor KE, et al and are availble under accession GCST012796 in the GWAS Catalog. The dataset contains 585 pSS cases and 1546 controls of European Acestry. The study design analytical strategy are available in the methods section of the publication: https://acrjournals.onlinelibrary.wiley.com/doi/10.1002/art.40040. 
 
-## Project Organization 
+## Project Organization (Notebooks written in R Markdown) 
 - Notebook 1: Download and Prepare GWAS
 - Nobteook 2: Harmonize and Clean GWAS Data
 - Notebook 3: GWAS Visualization
 - Notebook 4: _IRF5_ Locus Analysis
+
+## Main Findings 
+https://github.com/samvirolainen/Role_of_IRF5_in_Sjogrens_Syndrome/blob/main/results/qq_sjogrens.png
 
 ## Environment
 This project uses a reproducible conda environment (see `environment.yml`):
